@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Message;
+use App\Member;
 use Session;
 class MessageController extends Controller
 {
@@ -16,11 +17,17 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $message = new Message();
-        $messageList = $message->all();
-        return view('message.index', compact('messageList'));
+        if($request->session()->has('username')){
+            $message = new Message();
+            // $member = new Member();
+            $messageList = $message->all();
+            return view('message.index', compact('messageList'));
+        } else{
+            return redirect('/login');
+        }
+        
     }
 
     /**
@@ -42,6 +49,8 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $message = new Message();
+        $member = new Member();
+        $message->member_id = $request->session()->get('id');
         $message->title = $request->title;
         $message->content = $request->content;
         $message->save();

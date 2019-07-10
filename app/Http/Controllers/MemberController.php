@@ -16,7 +16,7 @@ class MemberController extends Controller
     }
 
     function logout(Request $request) {
-        $request->session()->forget('username');
+        $request->session()->flush();
         return redirect('/login');
     }
 
@@ -28,6 +28,7 @@ class MemberController extends Controller
         if( !is_null($member)){
             if (Hash::check($request->password, $member->password)) {
                 $request->session()->put('username',$member->account);
+                $request->session()->put('id',$member->id);
                 return redirect('/message');
             } else {
                 return redirect('/login')->with('error','Wrong password!');
@@ -45,6 +46,8 @@ class MemberController extends Controller
             $member->account = $request->account;
             $member->password = Hash::make($request->password);
             $member->save();
+            $request->session()->put('username',$member->account);
+            
             return redirect('/message');
         } else {
             return redirect('/register')->with('error','Duplicate account! Please change another one');

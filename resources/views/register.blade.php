@@ -10,12 +10,13 @@
 </head>
 <body>
 <div class = "container">
+    <h1>註冊</h1>
+    <hr>
     @if( session('error'))
         <div class = "alert alert-danger">
             {{Session::get('error')}}
         </div>
     @endif
-    <hr>
     <div class = "col-md-9 col-md-offset-2">
         <form class="form-horizontal" action = "/" method = "post">
             <fieldset>
@@ -40,8 +41,9 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for=""></label>
                 <div class="col-md-8">
-                <button id="" name="" class="btn btn-default">reset</button>
-                <button id="submit" name="submit" class="btn btn-primary">註冊</button>
+                    <a class = "btn btn-info" href = "/login">返回</a>
+                    <button id="" name="" class="btn btn-default">reset</button>
+                    <button id="submit" name="submit" class="btn btn-primary">註冊</button>
                 </div>
             </div>
         

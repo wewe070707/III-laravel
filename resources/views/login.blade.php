@@ -10,12 +10,14 @@
 </head>
 <body>
 <div class = "container">
+    <h1>登入</h1>
+    <hr>
     @if( session('error') )
         <div class="alert alert-danger">
             {{ Session::get('error') }}
         </div>
     @endif
-    <hr>
+    
     <div class = "col-md-9 col-md-offset-2">
         <form class="form-horizontal" action = "/login" method = "post">
             @csrf
